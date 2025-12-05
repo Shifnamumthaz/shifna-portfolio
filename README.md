@@ -1,27 +1,25 @@
-## shifna-portfolio
+# AI‑powered personal portfolio
 Welcome to my interactive **AI‑powered personal portfolio**.
 Showcasing my experience. Built with HTML, CSS, JS, and a custom AI assistant.
 
 ## ✨ Features
-AI Voice Assistant that narrates and guides users
-Futuristic animated background using Canvas
-Typing animation in hero section
-Smooth scrolling and scroll‑spy navigation
-Fully responsive UI
-Showcases my:
-AI + NLP Projects
-Experience
-Technical Skillset
-Professional Journey
+
+AI Voice Assistant (US English clear voice)  
+Futuristic animated canvas background (AI neural grid)  
+Typing text animation in the hero section  
+Interactive navigation with scroll‑spy  
+Fully responsive UI design  
+Highlighted AI + Full‑Stack projects  
+Clean and modern UI with professional animations  
 
 ## 🧠 Tech Stack
-**Frontend:**
+**Frontend:**  
 
-HTML
-CSS
-JavaScript
+HTML  
+CSS  
+JavaScript  
 
-**AI & ML:**
+**AI & ML:**  
 
-Web Speech API (AI voice assistant)
-LLM-based project descriptions
+Web Speech API (AI voice assistant)  
+LLM-based project descriptions  
