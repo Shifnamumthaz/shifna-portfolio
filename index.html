@@ -663,20 +663,54 @@
     <section id="projects">
         <h2 class="section-title">Projects</h2>
         <div class="projects-grid">
+
+            <div class="project-card" id="project0">
+                <div class="project-image">
+                    <img src="chatbot.webp" alt="Medical Chatbot" onerror="this.src='images/chatbot.webp'">
+                </div>
+                <div class="project-content">
+                    <h3>Medical Chatbot</h3>
+                    <p>Developed an AI‑powered medical assistant with semantic search and LLM reasoning, using Pinecone for vector retrieval and Flask APIs, deployed on AWS for scalable access.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">LLM</span>
+                        <span class="project-tag">LangChain</span>
+                        <span class="project-tag">Pinecone</span>
+                        <span class="project-tag">Flask</span>
+                        <span class="project-tag">AWS</span>
+                    </div>
+                     <a href="https://github.com/Shifnamumthaz/Medical-Chatbot" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                </div>
+            </div>
+            <div class="project-card" id="project6">
+                <div class="project-image">
+                    <img src="Talentscout.webp" alt="Talentscout AI" onerror="this.src='images/hr_recruit.webp'">
+                </div>
+                <div class="project-content">
+                    <h3>TalentScout AI - Intelligent recruitment workbench</h3>
+                    <p>Developed an intelligent recruitment workbench built with Python and Streamlit. It leverages Google's Gemini 2.0 Flash models to automate the tedious parts of hiring: parsing job descriptions, screening PDF resumes, ranking candidates, and generating tailored interview guides. </p>
+                    <div class="project-tags">
+                        <span class="project-tag">Google Gemini</span>
+                        <span class="project-tag">Streamlit</span>
+                        <span class="project-tag">MultiAgents</span>
+                    </div>
+                     <a href="https://github.com/Shifnamumthaz/TalentScout-AI-ntelligent-recruitment-workbench" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                </div>
+            </div>
+
             <div class="project-card" id="project1">
                 <div class="project-image">
                     <img src="rag-project.jpg" alt="RAG CV Analysis" onerror="this.src='https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=500&q=60'">
                 </div>
                 <div class="project-content">
                     <h3>RAG-Based CV Analysis Platform</h3>
-                    <p>Built a CV analysis system ingesting PDF/DOC resumes using OCR and LLM-based extraction. Utilized OpenAI models for semantic parsing and stored data in MongoDB. Developed an interactive <strong>Gradio chatbot</strong> for natural language queries.</p>
+                    <p>Built a CV analysis system ingesting PDF/DOC resumes using OCR and LLM-based extraction. Utilized OpenAI models for semantic parsing. Developed an interactive <strong>Gradio chatbot</strong> for natural language queries.</p>
                     <div class="project-tags">
                         <span class="project-tag">RAG</span>
                         <span class="project-tag">OpenAI</span>
-                        <span class="project-tag">MongoDB</span>
+                        <span class="project-tag">OCR</span>
                         <span class="project-tag">Gradio</span>
                     </div>
-                    <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                    <a href="https://github.com/Shifnamumthaz/CV-Extraction" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
                 </div>
             </div>
 
@@ -693,7 +727,7 @@
                         <span class="project-tag">MySQL</span>
                         <span class="project-tag">Java</span>
                     </div>
-                     <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                     <a href="https://github.com/Shifnamumthaz" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
                 </div>
             </div>
 
@@ -710,7 +744,7 @@
                         <span class="project-tag">NLP</span>
                         <span class="project-tag">Transformers</span>
                     </div>
-                     <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                     <a href="https://github.com/Shifnamumthaz" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
                 </div>
             </div>
             
@@ -727,7 +761,7 @@
                         <span class="project-tag">CNN</span>
                         <span class="project-tag">Deep Learning</span>
                     </div>
-                     <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                     <a href="https://github.com/Shifnamumthaz" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
                 </div>
             </div>
         </div>
@@ -746,6 +780,7 @@
                     <span class="skill-tag">LangChain</span>
                     <span class="skill-tag">TensorFlow</span>
                     <span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">Vector DB</span>
                     <span class="skill-tag">Fine-Tuning</span>
                 </div>
             </div>
@@ -758,6 +793,7 @@
                     <span class="skill-tag">React.js</span>
                     <span class="skill-tag">Node.js</span>
                     <span class="skill-tag">Spring Boot</span>
+                    <span class="skill-tag">Streamlit</span>
                     <span class="skill-tag">Gradio</span>
                 </div>
             </div>
@@ -1018,7 +1054,7 @@ animate();
                     speak("Here is her professional journey. Recently, she completed a Google Generative AI Course and developed multiple projects like Medical Chatbot, Land Price Predictor and Youtube vedio Summarizer.She also completed Data Analytics internship from Accenture. Before that, she spent over two years at Infosys as a Software Engineer, where she acted as an AI Engineer scraping data with Selenium and deploying on AWS and Google Cloud. She also has experience as a Full Stack Intern at Maxlore Innovations working with Django.");
                     break;
                 case 'projects':
-                    speak("Shifna has built some incredible projects. Notable ones include a RAG-based CV Analysis platform using OpenAI and MongoDB, a scalable Order Management System using Spring Boot, and a multilingual Hope Speech Detection model using BERT. She also built an Emotion Detection system using deep learning techniques to enhance user safety.");
+                    speak("Shifna has built some incredible projects. Notable ones include Medical Chatbot using LLMs, LangChain, Pinecone, Flask & AWS, a TalentScout AI is an intelligent recruitment workbench built with Python and Streamlit. A RAG-based CV Analysis platform using OpenAI and MongoDB, a scalable Order Management System using Spring Boot, and a multilingual Hope Speech Detection model using BERT. She also built an Emotion Detection system using deep learning techniques to enhance user safety.");
                     break;
                 case 'skills':
                     speak("Her technical arsenal is vast. She is proficient in Python, Java, and JavaScript. Her AI skills include LLMs like GPT and Gemini, RAG, LangChain, and fine-tuning models. On the cloud side, she is AWS Certified and experienced with Docker and CI/CD pipelines.");
@@ -1045,7 +1081,6 @@ animate();
 
         // Resume Button Click
         function openResume(e) {
-            // Add your actual Google Drive link here
             speak("Downloading Shifna's resume now. It contains detailed information about her certifications, including Google Generatvie AI, AI-First Software Engineering, Global Agile Developer Certification ,Prompt Engineering, Data analytics and visualization by Accenture and AWS Certified Cloud Practitioner.");
         }
 
