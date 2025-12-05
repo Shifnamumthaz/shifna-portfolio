@@ -1,0 +1,1094 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shifna Mumthaz | AI Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #001f3f 0%, #004a99 50%, #007bff 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Neural Network Background */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* AI Companion */
+        #ai-companion {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        #ai-companion:hover {
+            transform: scale(1.1);
+        }
+        
+        #bot-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #4da6ff;
+            box-shadow: 0 0 25px rgba(77, 166, 255, 0.5);
+        }
+        
+        #bot-img.talking {
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 255, 234, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(77, 166, 255, 0.9); }
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .logo span {
+            color: #00ffea;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #00ffea;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ffea;
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 50px;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+            gap: 50px;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #fff, #00ffea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .typing-container {
+            font-size: 1.5rem;
+            color: #00ffea;
+            margin-bottom: 30px;
+            min-height: 40px;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 30px;
+            background: #00ffea;
+            animation: blink 0.7s infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .resume-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #00ffea, #00a8ff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 234, 0.4);
+        }
+        
+        .resume-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(0, 255, 234, 0.6);
+        }
+        
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .profile-img {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #00ffea;
+            box-shadow: 0 0 50px rgba(0, 255, 234, 0.3);
+        }
+        
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Sections */
+        section {
+            padding: 100px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(90deg, #00ffea, #00a8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: #ccc;
+        }
+        
+        .about-image {
+            flex: 1;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 255, 234, 0.2);
+        }
+        
+        /* Experience Section */
+        .experience-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .experience-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid #00ffea;
+            transition: all 0.3s ease;
+        }
+        
+        .experience-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .experience-item h3 {
+            color: #00ffea;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .experience-item h4 {
+            color: #aaa;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        
+        .experience-item p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .experience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .experience-tag {
+            background: rgba(0, 255, 234, 0.1);
+            color: #00ffea;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-image {
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-content h3 {
+            color: #00ffea;
+            margin-bottom: 15px;
+        }
+        
+        .project-content p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .project-tag {
+            background: rgba(0, 255, 234, 0.1);
+            color: #00ffea;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #00ffea;
+            font-weight: bold;
+        }
+        
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-category {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-category:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .skill-category h3 {
+            color: #00ffea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill-tag {
+            background: rgba(0, 255, 234, 0.1);
+            color: #00ffea;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .contact-item {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .contact-item:hover {
+            background: rgba(0, 255, 234, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .contact-item i {
+            font-size: 2.5rem;
+            color: #00ffea;
+            margin-bottom: 15px;
+        }
+        
+        .contact-item h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .quote {
+            background: rgba(0, 255, 234, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        .quote .author {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #00ffea;
+        }
+        
+        /* Tour Highlights */
+        .tour-highlight {
+            animation: highlightGlow 2s infinite;
+        }
+        
+        @keyframes highlightGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 234, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 255, 234, 0.7); }
+        }
+        
+        .skill-highlight {
+            animation: skillGlow 2s infinite;
+        }
+        
+        @keyframes skillGlow {
+            0%, 100% { background: rgba(0, 255, 234, 0.07); }
+            50% { background: rgba(0, 255, 234, 0.15); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content, .about-content {
+                flex-direction: column;
+            }
+            
+            .profile-img {
+                width: 320px;
+                height: 320px;
+                margin-top: 40px;
+            }
+            
+            header {
+                padding: 18px 30px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 20px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+            
+            .hero {
+                padding: 100px 30px;
+            }
+            
+            section {
+                padding: 80px 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            nav ul {
+                gap: 15px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .profile-img {
+                width: 280px;
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Neural Network Background -->
+    <canvas id="canvas-bg"></canvas>
+    
+        <!-- AI Companion -->
+    <div id="ai-companion">
+        <img src="bot.jpg" id="bot-img" alt="AI" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712027.png'">
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">Shifna Mumthaz</div>
+        <nav>
+            <ul>
+                <li><a href="#about" class="nav-link active">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Shifna Mumthaz</h1>
+                
+                <div class="typing-container">
+                    <span id="typed-text"></span><span class="cursor"></span>
+                </div>
+                <a href="https://drive.google.com/file/d/13Grhx9QqT-zyRVp496C8DHGphrJQnBzx/view?usp=drive_link" class="resume-btn" onclick="openResume(event)" target="_blank">
+                    <i class="fas fa-download"></i>
+                    Download My Resume
+                </a>
+            </div>
+            <div class="hero-image">
+                <div class="profile-img">
+                    <img src="profile.jpg" alt="Shifna Mumthaz" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=Sophia'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>I am a results-driven <strong>AI Full Stack Developer</strong> with 3 years of hands-on experience designing, developing, and deploying scalable, intelligent applications. I hold an <strong>M.Tech in Computational Linguistics</strong> (CGPA 8.9) and specialize in integrating advanced AI/ML models to deliver automation and enhance user engagement.</p>
+                <p>My expertise bridges the gap between traditional software engineering and modern AI. I have extensive experience in building AI agents, implementing robust <strong>CI/CD pipelines</strong>, and managing cloud infrastructure on <strong>AWS</strong>. I am proficient in creating seamless frontend-backend integrations and leveraging technologies like <strong>LLMs, RAG, and NLP frameworks</strong>.</p>
+                <p>Passionate about digital transformation, I constantly explore new technologies to build innovative full-stack solutions that optimize business workflows.</p>
+            </div>
+            <div class="about-image">
+                <img src="about-img.jpg" alt="About Shifna" onerror="this.src='https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=869&q=80'">
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2 class="section-title">Professional Experience</h2>
+        <div class="experience-container">
+            <div class="experience-item">
+                <h3>Data Analytics (Virtual Internship)</h3>
+                <h4>Accenture | Jan 2025 – Feb 2025</h4>
+                <p>Gained hands-on experience in data cleaning, transformation, visualization, and data-driven decision making. Developed and presented insights using real-world business scenarios to drive strategic outcomes.</p>
+                <div class="experience-tags">
+                    <span class="experience-tag">Data Visualization</span>
+                    <span class="experience-tag">Analytics</span>
+                    <span class="experience-tag">Business Intelligence</span>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <h3>Software Engineer</h3>
+                <h4>Infosys | Oct 2022 – Nov 2024</h4>
+                <p>Collaborated as an <strong>AI Engineer</strong> to scrape job data using Selenium WebDriver. Extracted and preprocessed unstructured data into structured JSON for AI-driven analytics. Automated posting to LinkedIn and containerized workflows with <strong>Docker</strong>. Deployed scalable applications on <strong>AWS</strong> and <strong>Google Cloud</strong> while working in Agile teams.</p>
+                <div class="experience-tags">
+                    <span class="experience-tag">Selenium</span>
+                    <span class="experience-tag">Docker</span>
+                    <span class="experience-tag">AWS</span>
+                    <span class="experience-tag">Python</span>
+                    <span class="experience-tag">CI/CD</span>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <h3>Full Stack Intern</h3>
+                <h4>Maxlore Innovations | Nov 2019 – Apr 2020</h4>
+                <p>Developed responsive interfaces using HTML, CSS, and JavaScript. Integrated <strong>Django backend</strong> with frontend components for seamless user experiences. Debugged and troubleshot issues during development, testing, and production stages.</p>
+                <div class="experience-tags">
+                    <span class="experience-tag">Html</span>
+                    <span class="experience-tag">CSS</span>
+                    <span class="experience-tag">JavaScript</span>
+                    <span class="experience-tag">Django</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card" id="project1">
+                <div class="project-image">
+                    <img src="rag-project.jpg" alt="RAG CV Analysis" onerror="this.src='https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=500&q=60'">
+                </div>
+                <div class="project-content">
+                    <h3>RAG-Based CV Analysis Platform</h3>
+                    <p>Built a CV analysis system ingesting PDF/DOC resumes using OCR and LLM-based extraction. Utilized OpenAI models for semantic parsing and stored data in MongoDB. Developed an interactive <strong>Gradio chatbot</strong> for natural language queries.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">RAG</span>
+                        <span class="project-tag">OpenAI</span>
+                        <span class="project-tag">MongoDB</span>
+                        <span class="project-tag">Gradio</span>
+                    </div>
+                    <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                </div>
+            </div>
+
+            <div class="project-card" id="project2">
+                <div class="project-image">
+                    <img src="ecommerce.jpg" alt="Order Management" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=&w=500&q=60'">
+                </div>
+                <div class="project-content">
+                    <h3>Order Management System</h3>
+                    <p>Developed backend services using <strong>Spring Boot</strong> for order processing and user management. Implemented cloud-native solutions using <strong>AWS</strong> and optimized MySQL databases for efficient storage and retrieval.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Spring Boot</span>
+                        <span class="project-tag">AWS</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">Java</span>
+                    </div>
+                     <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                </div>
+            </div>
+
+            <div class="project-card" id="project3">
+                <div class="project-image">
+                    <img src="nlp.jpg" alt="Hope Speech" onerror="this.src='https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=&w=500&q=60'">
+                </div>
+                <div class="project-content">
+                    <h3>Hope Speech Detection</h3>
+                    <p>Developed a multilingual NLP model for hope speech classification in Tamil and Malayalam. Implemented a stacked transformer-based encoder on <strong>BERT</strong> with cross-lingual word embeddings and attention mechanisms.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">BERT</span>
+                        <span class="project-tag">PyTorch</span>
+                        <span class="project-tag">NLP</span>
+                        <span class="project-tag">Transformers</span>
+                    </div>
+                     <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                </div>
+            </div>
+            
+            <div class="project-card" id="project4">
+                <div class="project-image">
+                    <img src="emotion.jpg" alt="Emotion Detection" onerror="this.src='https://images.unsplash.com/photo-1535295972055-1c762f4483e5?auto=format&fit=crop&w=500&q=60'">
+                </div>
+                <div class="project-content">
+                    <h3>Emotion Detection</h3>
+                    <p>Built an automatic recognition system for six emotions using deep learning (TensorFlow/Keras). Utilized <strong>CNN</strong> for feature extraction and LLM-based embeddings to block messages with unhealthy emotions.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">TensorFlow</span>
+                        <span class="project-tag">Keras</span>
+                        <span class="project-tag">CNN</span>
+                        <span class="project-tag">Deep Learning</span>
+                    </div>
+                     <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> View Code</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-container">
+            <div class="skill-category">
+                <h3><i class="fas fa-brain"></i> AI & Machine Learning</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">LLM Models (OpenAI, Gemini)</span>
+                    <span class="skill-tag">NLP (Transformers, NLTK)</span>
+                    <span class="skill-tag">RAG</span>
+                    <span class="skill-tag">LangChain</span>
+                    <span class="skill-tag">TensorFlow</span>
+                    <span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">Fine-Tuning</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-code"></i> Languages & Frameworks</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">React.js</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Spring Boot</span>
+                    <span class="skill-tag">Gradio</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-cloud"></i> Cloud & DevOps</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">AWS (Certified)</span>
+                    <span class="skill-tag">Google Cloud</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">CI/CD Pipelines</span>
+                    <span class="skill-tag">Git</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-database"></i> Databases & Tools</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">VS Code</span>
+                    <span class="skill-tag">Postman</span>
+                    <span class="skill-tag">JIRA</span>
+                    <span class="skill-tag">PowerBI</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item" onclick="window.open('mailto:shifnamumthazpm98@gmail.com')">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>shifnamumthazpm98@gmail.com</p>
+                </div>
+                <div class="contact-item" onclick="window.location.href='tel:+971582575700'">
+                    <i class="fas fa-phone"></i>
+                    <h3>Phone</h3>
+                    <p>+971 58 257 5700</p>
+                </div>
+                <div class="contact-item" onclick="window.open('https://github.com/shifnamumthaz', '_blank')">
+                    <i class="fab fa-github"></i>
+                    <h3>GitHub</h3>
+                </div>
+                <div class="contact-item" onclick="window.open('https://www.linkedin.com/in/shifna-mumthaz-p-m-43644b190/', '_blank')">
+                    <i class="fab fa-linkedin"></i>
+                    <h3>LinkedIn</h3>
+                </div>
+            </div>
+            <div class="quote">
+                <p>Passionately leveraging AI technologies to build innovative, full-stack solutions that optimize business workflows.</p>
+                <div class="author">- Shifna Mumthaz</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // --- NEURAL NETWORK BACKGROUND ---
+        <!-- --- AI FUTURISTIC BACKGROUND (REPLACEMENT) --- -->
+
+const canvas = document.getElementById("canvas-bg");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+// --- AI GRID + NEURAL NODES ---
+let nodes = [];
+let gridSize = 60;
+
+// create evenly spaced nodes
+function initNodes() {
+    nodes = [];
+    for (let x = 0; x < canvas.width; x += gridSize) {
+        for (let y = 0; y < canvas.height; y += gridSize) {
+            nodes.push({
+                x: x,
+                y: y,
+                pulse: Math.random() * 5,
+                speed: 0.02 + Math.random() * 0.03
+            });
+        }
+    }
+}
+
+function drawBackground() {
+    ctx.fillStyle = "rgba(0, 20, 60, 1)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// subtle futuristic lines
+function drawGridLines() {
+    ctx.strokeStyle = "rgba(0, 150, 255, 0.15)";
+    ctx.lineWidth = 1;
+
+    for (let x = 0; x < canvas.width; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+    }
+
+    for (let y = 0; y < canvas.height; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+    }
+}
+
+// animated glowing neural dots
+function drawNodes() {
+    nodes.forEach(n => {
+        n.pulse += n.speed;
+        let size = 2 + Math.sin(n.pulse) * 2;
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(0,180,255,0.85)";
+        ctx.fill();
+    });
+}
+
+// neural network connections
+function drawConnections() {
+    nodes.forEach(a => {
+        nodes.forEach(b => {
+            let dist = Math.hypot(a.x - b.x, a.y - b.y);
+            if (dist < 90) {
+                ctx.strokeStyle = `rgba(0, 160, 255, ${0.1 - dist / 900})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+            }
+        });
+    });
+}
+
+function animate() {
+    drawBackground();
+    drawGridLines();
+    drawConnections();
+    drawNodes();
+    requestAnimationFrame(animate);
+}
+
+initNodes();
+animate();
+
+
+        // --- TYPEWRITER ANIMATION ---
+        const words = ["AI Full Stack Developer", "NLP Specialist", "Software Engineer", "Cloud Architect"];
+        const typedTextSpan = document.getElementById("typed-text");
+        const typingDelay = 100;
+        const erasingDelay = 50;
+        const newTextDelay = 2000;
+        
+        let wordIndex = 0;
+        let charIndex = 0;
+
+        function type() {
+            if (charIndex < words[wordIndex].length) {
+                typedTextSpan.textContent += words[wordIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, typingDelay);
+            } else {
+                setTimeout(erase, newTextDelay);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typedTextSpan.textContent = words[wordIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, erasingDelay);
+            } else {
+                wordIndex++;
+                if (wordIndex >= words.length) wordIndex = 0;
+                setTimeout(type, typingDelay + 1100);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => { 
+            if(words.length) setTimeout(type, newTextDelay + 250);
+        });
+
+        // --- AI COMPANION AND TOUR LOGIC ---
+        const aiComp = document.getElementById('ai-companion');
+        const botImg = document.getElementById('bot-img');
+        const navLinks = document.querySelectorAll('.nav-link');
+        let currentSection = 'about';
+
+        // Helper: Speak Function
+        function speak(text, callback) {
+            if (!window.speechSynthesis) {
+                console.warn("No Speech API");
+                if (callback) setTimeout(callback, 500);
+                return;
+            }
+
+            window.speechSynthesis.cancel(); // Stop previous speech
+
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.rate = 1.0;
+            utter.pitch = 1.0;
+            utter.volume = 1.0;
+
+            // Try to select a female voice for Shifna's portfolio, or a clear default
+            const voices = window.speechSynthesis.getVoices();
+            let selectedVoice = voices.find(v => v.name.includes("Google US English")) ||
+                                voices.find(v => v.lang === "en-US") ||
+                                voices[0];
+
+            if (selectedVoice) utter.voice = selectedVoice;
+
+            utter.onstart = () => botImg.classList.add('talking');
+            utter.onend = () => {
+                botImg.classList.remove('talking');
+                if (callback) setTimeout(callback, 300);
+            };
+
+            window.speechSynthesis.speak(utter);
+        }
+
+        // --- TOUR FUNCTIONS (Updated with Shifna's CV) ---
+
+        // Click on Bot to start introduction
+        aiComp.addEventListener('click', () => {
+            speak("Hello! I am Shifna's AI assistant. Shifna is a results-driven AI Full Stack Developer with 3 years of experience. Would you like me to give you a tour of her profile? Just scroll down or click the navigation links, and I'll explain her achievements!");
+        });
+
+        function scrollToSection(sectionId) {
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                speakSectionInfo(sectionId);
+            }
+        }
+
+        // Narrative logic for each section based on CV
+        function speakSectionInfo(sectionId) {
+            switch (sectionId) {
+                case 'about':
+                    speak("This is Shifna. She holds an M.Tech in Computational Linguistics with an impressive 8.9 CGPA. She bridges the gap between traditional software engineering and modern AI, specializing in building AI agents, CI/CD pipelines, and cloud infrastructure on AWS. She is currently immediately available for new opportunities in UAE.");
+                    break;
+                case 'experience':
+                    speak("Here is her professional journey. Recently, she completed a Google Generative AI Course and developed multiple projects like Medical Chatbot, Land Price Predictor and Youtube vedio Summarizer.She also completed Data Analytics internship from Accenture. Before that, she spent over two years at Infosys as a Software Engineer, where she acted as an AI Engineer scraping data with Selenium and deploying on AWS and Google Cloud. She also has experience as a Full Stack Intern at Maxlore Innovations working with Django.");
+                    break;
+                case 'projects':
+                    speak("Shifna has built some incredible projects. Notable ones include a RAG-based CV Analysis platform using OpenAI and MongoDB, a scalable Order Management System using Spring Boot, and a multilingual Hope Speech Detection model using BERT. She also built an Emotion Detection system using deep learning techniques to enhance user safety.");
+                    break;
+                case 'skills':
+                    speak("Her technical arsenal is vast. She is proficient in Python, Java, and JavaScript. Her AI skills include LLMs like GPT and Gemini, RAG, LangChain, and fine-tuning models. On the cloud side, she is AWS Certified and experienced with Docker and CI/CD pipelines.");
+                    break;
+                case 'contact':
+                    speak("If you are impressed, you should get in touch! You can email her at shifnamumthazpm98@gmail.com or call her at +971 58 257 5700. She is based in the UAE and ready to join immediately.");
+                    break;
+                default:
+                    speak("Welcome to Shifna's portfolio.");
+            }
+        }
+
+        // Navigation Click Listeners
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+            });
+        });
+
+        // Resume Button Click
+        function openResume(e) {
+            // Add your actual Google Drive link here
+            speak("Downloading Shifna's resume now. It contains detailed information about her certifications, including Google Generatvie AI, AI-First Software Engineering, Global Agile Developer Certification ,Prompt Engineering, Data analytics and visualization by Accenture and AWS Certified Cloud Practitioner.");
+        }
+
+        // Scroll Spy to update active link and trigger voice occasionally
+        let isScrolling;
+        window.addEventListener('scroll', () => {
+            clearTimeout(isScrolling);
+            
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Optional: Debounce voice on scroll to avoid constant talking
+            isScrolling = setTimeout(() => {
+                if(current && current !== currentSection) {
+                    currentSection = current;
+                    // Uncomment the line below if you want auto-narration on scroll
+                    // speakSectionInfo(currentSection); 
+                }
+            }, 500);
+        });
+
+        // Initialize voices
+        window.speechSynthesis.getVoices();
+        
+        // Initial greeting after load
+        setTimeout(() => {
+             speak("Welcome. I am Shifna Mumthaz's interactive AI portfolio. Click on me or navigate the menu to learn about her work in AI, NLP, and Full Stack Development.");
+        }, 1500);
+
+    </script>
+</body>
+</html>
